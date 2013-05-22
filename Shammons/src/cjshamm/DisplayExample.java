@@ -3,6 +3,7 @@ package cjshamm;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
 
 public class DisplayExample {
 	public void start() {
@@ -15,10 +16,19 @@ public class DisplayExample {
 		}
 		
 		// init OpenGL here
-		
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, 800, 0, 600, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		while (!Display.isCloseRequested()) {
 			
 			// render OpenGL here
+			GL11.glBegin(GL11.GL_QUADS);
+			GL11.glVertex2f(100, 100);
+			GL11.glVertex2f(100+200, 100);
+			GL11.glVertex2f(100+200, 100+200);
+			GL11.glVertex2f(100, 100+200);
+			GL11.glEnd();
 			
 			Display.update();
 		}
@@ -26,7 +36,7 @@ public class DisplayExample {
 		Display.destroy();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main(String[] args) {
 		DisplayExample displayExample = new DisplayExample();
 		displayExample.start();
 	}
